@@ -6,7 +6,7 @@
 /*   By: rpapyan <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 01:04:59 by rpapyan           #+#    #+#             */
-/*   Updated: 2022/07/29 15:54:41 by rpapyan          ###   ########.fr       */
+/*   Updated: 2022/07/29 17:31:41 by rpapyan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,6 @@ int	ft_handler(char c, va_list *ptr)
 		len += print_char(va_arg(*ptr, int));
 	if (c == 's')
 		len += print_str(va_arg(*ptr, char *));
-	if (c == '%')
-		len += write(1, "%", 1);
 	if (c == 'p')
 		len += print_ptr(va_arg(*ptr, unsigned long long));
 	if (c == 'd')
@@ -92,5 +90,7 @@ int	ft_handler(char c, va_list *ptr)
 		len += ft_print_hex(va_arg(*ptr, unsigned int), 0);
 	if (c == 'X')
 		len += ft_print_hex(va_arg(*ptr, unsigned int), 1);
+	if (c == '%')
+		len += write(1, "%", 1);
 	return (len);
 }
