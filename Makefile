@@ -5,46 +5,47 @@
 #                                                     +:+ +:+         +:+      #
 #    By: rpapyan <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/05/29 01:25:36 by rpapyan           #+#    #+#              #
-#    Updated: 2022/07/29 15:24:06 by rpapyan          ###   ########.fr        #
+#    Created: 2022/07/30 15:25:28 by rpapyan           #+#    #+#              #
+#    Updated: 2022/07/30 15:38:23 by rpapyan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-LIBFT = ./libft/libft.a
-
 NAME = libftprintf.a
 
-OBJS = $(SRCS:.c=.o)
+LIBFT = ./libft/libft.a
 
-SRCS = ft_printf.c ft_printer.c 
+SRCS = ft_printf.c\
+	   ft_printer.c\
 
-CC = cc
+OBJS = ${SRCS:.c=.o}
+
+CC = gcc
+
+RM = rm -f
 
 CFLAGS = -Wall -Wextra -Werror
 
-DEL = @rm -rf
+AR = ar csr
 
-all: $(NAME)	
+.c.o:
+	$(CC) $(CFLAGS) -c $< -o ${<:.c=.o}
 
-$(NAME): $(OBJS)
+$(NAME): ${OBJS}
 	$(MAKE) -C ./libft
-	cp ./libft/libft.a $(NAME)
-	$(CC) $(CFLAGS) -c -I./libft ft_printf.h $(SRCS)	
-	@ar rcs $(NAME) $(OBJS)
+	cp $(LIBFT) ${NAME}
+	${AR} ${NAME} ${OBJS}
+
+all: ${NAME}
 
 clean:
-	$(DEL) $(OBJS)
+	$(MAKE) clean -C ./libft
+	${RM} ${OBJS}
 
 fclean: clean
-	$(DEL) $(NAME)
+	$(MAKE) fclean -C ./libft
+	${RM} ${NAME}
 
 re: fclean all
 
-test:
-	@$(MAKE) -C ./libft
-	@$(CC) $(CFLAGS) -I./libft -L./libft -lft *.c ft_printf.h
-	@./a.out
-	@make fclean
-	@$(MAKE) fclean -C ./libft
-	@rm a.out
-.PHONY: all, clean, fclean, re, test
+.PHONY: all clean fclean bonus re .c.o
+
