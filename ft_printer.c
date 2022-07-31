@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpapyan <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/05 02:21:15 by rpapyan           #+#    #+#             */
-/*   Updated: 2022/07/21 21:14:58 by rpapyan          ###   ########.fr       */
+/*   Created: 2022/07/31 14:50:17 by rpapyan           #+#    #+#             */
+/*   Updated: 2022/07/31 14:50:21 by rpapyan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,26 +30,32 @@ int	print_str(char *str)
 int	print_ptr(unsigned long long ptr)
 {
 	int		len;
-	int		i;
 	char	*str;
+	int		i;
 
 	i = 0;
 	len = 0;
 	if (ptr)
 		len = write(1, "0x", 2);
-	str = ft_ull_base(ptr, 16);
-	while (*str)
+	else
 	{
-		*str = ft_tolower(*str);
-		len += write(1, str++, 1);
+		len = write(1, "0x0", 3);
+		return (len);
 	}
+	str = ft_ull_base(ptr, 16);
+	while (str[i])
+	{
+		str[i] = ft_tolower(str[i]);
+		len += write(1, &str[i], 1);
+		i++;
+	}
+	free(str);
 	return (len);
 }
 
 char	*ft_ull_base(unsigned long long nb, int base)
 {
 	char				*str;
-	char				*rtn;
 	size_t				count;
 
 	count = ft_digit_counter(nb, base);
@@ -67,9 +73,7 @@ char	*ft_ull_base(unsigned long long nb, int base)
 		nb /= base;
 		count--;
 	}	
-	rtn = str;
-	free(str);
-	return (rtn);
+	return (str);
 }
 
 int	ft_print_hex(unsigned int nb, int i)

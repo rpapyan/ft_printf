@@ -40,7 +40,6 @@ static void	ft_strrev(char *str)
 char	*ft_itoa(int n)
 {
 	char	*str;
-	char	*str2;
 	int		is_neg;
 	size_t	length;
 
@@ -59,7 +58,5 @@ char	*ft_itoa(int n)
 	if (is_neg)
 		str[length] = '-';
 	ft_strrev(str);
-	str2 = str;
-	free(str);
-	return (str2);
+	return (str);
 }

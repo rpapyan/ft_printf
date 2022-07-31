@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpapyan <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/29 01:04:59 by rpapyan           #+#    #+#             */
-/*   Updated: 2022/07/30 15:40:56 by rpapyan          ###   ########.fr       */
+/*   Created: 2022/07/31 14:50:31 by rpapyan           #+#    #+#             */
+/*   Updated: 2022/07/31 14:50:35 by rpapyan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,16 @@ int	print_number(int number)
 {
 	char	*str;
 	int		len;
+	int		i;
 
+	i = 0;
 	len = 0;
 	str = ft_itoa(number);
-	while (*str)
-		len += write(1, str++, 1);
+	while (str[i])
+	{
+		len += write(1, &str[i], 1);
+		i++;
+	}
 	free(str);
 	return (len);
 }

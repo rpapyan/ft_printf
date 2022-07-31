@@ -5,17 +5,17 @@
 #                                                     +:+ +:+         +:+      #
 #    By: rpapyan <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/07/30 15:25:28 by rpapyan           #+#    #+#              #
-#    Updated: 2022/07/30 15:38:23 by rpapyan          ###   ########.fr        #
+#    Created: 2022/07/31 14:50:02 by rpapyan           #+#    #+#              #
+#    Updated: 2022/07/31 14:50:06 by rpapyan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 
-LIBFT = ./libft/libft.a
+#LIBFT = ./libft/libft.a
 
 SRCS = ft_printf.c\
-	   ft_printer.c\
+       ft_printer.c\
 
 OBJS = ${SRCS:.c=.o}
 
@@ -32,7 +32,7 @@ AR = ar csr
 
 $(NAME): ${OBJS}
 	$(MAKE) -C ./libft
-	cp $(LIBFT) ${NAME}
+	cp ./libft/libft.a $(NAME)
 	${AR} ${NAME} ${OBJS}
 
 all: ${NAME}
@@ -46,6 +46,8 @@ fclean: clean
 	${RM} ${NAME}
 
 re: fclean all
+
+.SILENT:
 
 .PHONY: all clean fclean bonus re .c.o
 
